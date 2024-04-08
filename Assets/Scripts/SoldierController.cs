@@ -9,6 +9,8 @@ public class SoldierController : MonoBehaviour
     public int m_CurrentHealthPoints;
 
     public GameObject m_EnemyBase;
+    public GameObject[] m_EnemyList;
+    public int m_NumEnemies = 0;
     private Object m_Enemy;
 
     public Animator m_Animator;
@@ -59,7 +61,6 @@ public class SoldierController : MonoBehaviour
                 StandbyBehaviour(dt);
                 break;
             case SoldierStates.SELECT_AND_GO_TO_POINT:
-                GoToEnemyBase();
                 break;
             case SoldierStates.FIRING_BASE:
 
@@ -67,6 +68,7 @@ public class SoldierController : MonoBehaviour
             case SoldierStates.FIRING_ENEMY:
                 m_NavMeshAgent.isStopped = true;
                 TurretLooksAtPlayer(dt);
+                CheckEnemy();
                 FireEnemy(dt);
                 break;
 
@@ -81,6 +83,7 @@ public class SoldierController : MonoBehaviour
                 
                 break;
             case SoldierStates.SELECT_AND_GO_TO_POINT:
+                m_CurrentState = SoldierStates.SELECT_AND_GO_TO_POINT;
                 m_NavMeshAgent.isStopped = false;
                 m_NavMeshAgent.SetDestination(m_EnemyBase.transform.position);
                 break;
@@ -102,42 +105,37 @@ public class SoldierController : MonoBehaviour
         {
             m_RemainingStandbyTime = m_StandbyTime;
             OnStateEnter(SoldierStates.SELECT_AND_GO_TO_POINT);
-            m_CurrentState = SoldierStates.SELECT_AND_GO_TO_POINT;
         }
     }
-    private void GoToEnemyBase()
-    {
-        
-
-    }
+    
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "EnemyBase")
+        if (other.GameObject().tag == "EnemyBase")
         {
-            m_CurrentState = SoldierStates.FIRING_ENEMY;
             m_Enemy = other;
             m_WhereToAim = other.transform;
+            Debug.Log("Enemy");
+            OnStateEnter(SoldierStates.SELECT_AND_GO_TO_POINT);
         }
-        if (other.tag == "Enemy")
+        if (other.GameObject().tag == "Enemy")
         {
-            m_CurrentState = SoldierStates.FIRING_ENEMY;
-            m_Enemy = other;
-            m_WhereToAim = other.transform;
+            m_NumEnemies++;
+            m_EnemyList[m_NumEnemies - 1] = other.gameObject;
+            Debug.Log("Enemy");
+            OnStateEnter(SoldierStates.SELECT_AND_GO_TO_POINT);
         }
     }
 
     private void FireEnemy(float dt)
     {
+        Debug.Log("Disparo");
+        m_Enemy = m_EnemyList[0];
         m_Animator.SetBool("IsFiring", true);
         if (m_RemainingFireRate <= 0)
         {
             m_Animator.SetTrigger("Shoot");
             m_RemainingFireRate = m_FireRate;
             SpawnShell();
-            if(m_Enemy.IsDestroyed())
-            {
-                m_Animator.SetBool("IsFiring", false);
-            }
         }
         else
         {
@@ -147,10 +145,28 @@ public class SoldierController : MonoBehaviour
     private void TurretLooksAtPlayer(float dt)
     {
         //Look at player
-        Vector3 lookPos = m_WhereToAim.position - transform.position;
+        m_WhereToAim = m_Enemy.GetComponent<Transform>();
+        Vector3 lookPos = m_WhereToAim.transform.position - transform.position;
         lookPos.y = 0;
         Quaternion rotation = Quaternion.LookRotation(lookPos);
         m_Turret.rotation = Quaternion.LookRotation(lookPos);
+    }
+
+    private void CheckEnemy()
+    {
+        if(m_Enemy.IsDestroyed())
+        {
+            for(int i = 0; i < m_NumEnemies; i++)
+            {
+                m_EnemyList[i] = m_EnemyList[i++];
+            }
+            m_NumEnemies--;
+        }
+        if(m_NumEnemies <= 0)
+        {
+            m_NumEnemies = 0;
+            OnStateEnter(SoldierStates.SELECT_AND_GO_TO_POINT);
+        }
     }
     public void TakeDamage(int damage)
     {
@@ -175,10 +191,5 @@ public class SoldierController : MonoBehaviour
         shell.SetActive(true);
 
         shell.GetComponent<Rigidbody>().AddForce(shell.transform.forward * 1000);
-    }
-
-    private void DestroyObject()
-    {
-        Destroy(gameObject);
     }
 }
