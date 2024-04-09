@@ -7,11 +7,11 @@ public class ShellPoolManager : MonoBehaviour
     public List<GameObject> shellPool = new List<GameObject>();
 
     public GameObject m_ShellPrefab;
-    public int m_PoolSize = 30;
+    public int m_PoolSize;
 
     private void Awake()
     {
-        for (int i = 0; i < m_PoolSize--; i++)
+        for (int i = 0; i < m_PoolSize; i++)
         {
             GameObject shell = Instantiate(m_ShellPrefab);
             shell.SetActive(false);

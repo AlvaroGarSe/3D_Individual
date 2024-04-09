@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ShellScript : MonoBehaviour
 {
-    public float lifeTime = 10f;
+    public float lifeTime =5f;
 
     public ShellPoolManager m_ShellPoolManager;
 
@@ -26,7 +26,7 @@ public class ShellScript : MonoBehaviour
 
     private void OnEnable()
     {
-        lifeTime = 10f;
+        lifeTime = 5f;
     }
 
     private void OnCollisionEnter(Collision collision)

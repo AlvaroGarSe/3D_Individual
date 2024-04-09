@@ -32,11 +32,10 @@ public class SoldierController : MonoBehaviour
     public float m_FireRate = 1.0f;
     public float m_RemainingFireRate = 0.0f;
 
-    public Transform m_Turret;
+    public GameObject m_SoldierBody;
     public Transform m_BulletSpawnPoint;
     public Transform m_WhereToAim;
     private ShellPoolManager m_ShellPoolManager;
-
 
     // Start is called before the first frame update
     void Start()
@@ -143,17 +142,18 @@ public class SoldierController : MonoBehaviour
 
     private void Shoot()
     {
-        Debug.Log("bala");
         SpawnShell();
     }
     private void TurretLooksAtPlayer(float dt)
     {
-        //Look at player
+        Debug.Log("mirar");
         m_WhereToAim = m_EnemyList[0].GetComponent<Transform>();
-        Vector3 lookPos = m_WhereToAim.transform.position - transform.position;
+        m_NavMeshAgent.velocity = Vector3.zero;
+        Vector3 lookPos = m_WhereToAim.transform.position;
+        Vector3 targetDirection = m_WhereToAim.transform.position - transform.position;
         lookPos.y = 0;
-        Quaternion rotation = Quaternion.LookRotation(lookPos);
-        gameObject.transform.rotation = Quaternion.LookRotation(lookPos);
+        Vector3 newDirection = Vector3.RotateTowards(transform.forward, targetDirection, dt, 0.0f);
+        transform.rotation = Quaternion.LookRotation(newDirection);
     }
 
     private void CheckEnemy()
