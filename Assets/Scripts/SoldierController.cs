@@ -9,9 +9,7 @@ public class SoldierController : MonoBehaviour
     public int m_CurrentHealthPoints;
 
     public GameObject m_EnemyBase;
-    public GameObject[] m_EnemyList;
-    public int m_NumEnemies = 0;
-    private Object m_Enemy;
+    public List<GameObject> m_EnemyList = new List<GameObject>();
 
     public Animator m_Animator;
 
@@ -46,6 +44,7 @@ public class SoldierController : MonoBehaviour
         m_NavMeshAgent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         m_RemainingStandbyTime = m_StandbyTime;
         m_CurrentHealthPoints = m_MaxHealthPoints;
+        m_ShellPoolManager = GameObject.Find("ShellPoolManager").GetComponent<ShellPoolManager>();
         m_Animator = GetComponent<Animator>();
         m_EnemyBase = GameObject.Find("EnemyBase");
     }
@@ -66,7 +65,6 @@ public class SoldierController : MonoBehaviour
 
                 break;
             case SoldierStates.FIRING_ENEMY:
-                m_NavMeshAgent.isStopped = true;
                 TurretLooksAtPlayer(dt);
                 CheckEnemy();
                 FireEnemy(dt);
@@ -84,13 +82,16 @@ public class SoldierController : MonoBehaviour
                 break;
             case SoldierStates.SELECT_AND_GO_TO_POINT:
                 m_CurrentState = SoldierStates.SELECT_AND_GO_TO_POINT;
+                m_Animator.SetBool("IsWalking", true);
                 m_NavMeshAgent.isStopped = false;
                 m_NavMeshAgent.SetDestination(m_EnemyBase.transform.position);
                 break;
             case SoldierStates.FIRING_BASE:
                 
                 break;
-            default:
+            case SoldierStates.FIRING_ENEMY:
+                m_NavMeshAgent.isStopped= true;
+                m_CurrentState = SoldierStates.FIRING_ENEMY;
                 break;
         }
     }
@@ -110,27 +111,24 @@ public class SoldierController : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GameObject().tag == "EnemyBase")
+        if (other.CompareTag("EnemyBase"))
         {
-            m_Enemy = other;
-            m_WhereToAim = other.transform;
-            Debug.Log("Enemy");
             OnStateEnter(SoldierStates.SELECT_AND_GO_TO_POINT);
         }
-        if (other.GameObject().tag == "Enemy")
+        if (other.CompareTag("Enemy"))
         {
-            m_NumEnemies++;
-            m_EnemyList[m_NumEnemies - 1] = other.gameObject;
-            Debug.Log("Enemy");
-            OnStateEnter(SoldierStates.SELECT_AND_GO_TO_POINT);
+            m_EnemyList.Add(other.gameObject);
+            if(m_CurrentState != SoldierStates.FIRING_ENEMY)
+            {
+                OnStateEnter(SoldierStates.FIRING_ENEMY);
+            }
+            
         }
     }
 
     private void FireEnemy(float dt)
     {
-        Debug.Log("Disparo");
-        m_Enemy = m_EnemyList[0];
-        m_Animator.SetBool("IsFiring", true);
+        m_Animator.SetBool("IsFiring", true);   
         if (m_RemainingFireRate <= 0)
         {
             m_Animator.SetTrigger("Shoot");
@@ -142,29 +140,34 @@ public class SoldierController : MonoBehaviour
             m_RemainingFireRate -= dt;
         }
     }
+
+    private void Shoot()
+    {
+        Debug.Log("bala");
+        SpawnShell();
+    }
     private void TurretLooksAtPlayer(float dt)
     {
         //Look at player
-        m_WhereToAim = m_Enemy.GetComponent<Transform>();
+        m_WhereToAim = m_EnemyList[0].GetComponent<Transform>();
         Vector3 lookPos = m_WhereToAim.transform.position - transform.position;
         lookPos.y = 0;
         Quaternion rotation = Quaternion.LookRotation(lookPos);
-        m_Turret.rotation = Quaternion.LookRotation(lookPos);
+        gameObject.transform.rotation = Quaternion.LookRotation(lookPos);
     }
 
     private void CheckEnemy()
     {
-        if(m_Enemy.IsDestroyed())
+        for (int i = 0; i < m_EnemyList.Count; i++)
         {
-            for(int i = 0; i < m_NumEnemies; i++)
+            if (m_EnemyList[i].IsDestroyed())
             {
-                m_EnemyList[i] = m_EnemyList[i++];
+                m_EnemyList.RemoveAt(i);
             }
-            m_NumEnemies--;
         }
-        if(m_NumEnemies <= 0)
-        {
-            m_NumEnemies = 0;
+
+        if (m_EnemyList.Count <= 0)
+        { 
             OnStateEnter(SoldierStates.SELECT_AND_GO_TO_POINT);
         }
     }
@@ -192,4 +195,10 @@ public class SoldierController : MonoBehaviour
 
         shell.GetComponent<Rigidbody>().AddForce(shell.transform.forward * 1000);
     }
+
+    private void DestroyObject()
+    {
+        Destroy(gameObject);
+    }
+
 }

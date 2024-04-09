@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,8 @@ public class PlayerBaseController : MonoBehaviour
     public int m_MaxHealthPoints = 50;
     public int m_GoldAmount;
     public int m_MetalAmount;
+    public Object m_GoldText;
+    public Object m_MetalText;
 
     public Transform m_GoldGathererSpawn;
     public Transform m_HeavySoldierSpawn;
@@ -26,6 +29,7 @@ public class PlayerBaseController : MonoBehaviour
     public Button m_HeavySoldierButton;
     public Button m_MetalGathererButton;
     public Button m_SoldierButton;
+    
 
 
 
@@ -37,7 +41,6 @@ public class PlayerBaseController : MonoBehaviour
         m_HeavySoldierButton.onClick.AddListener (HeavySoldierSpawner);
         m_MetalGathererButton.onClick.AddListener(MetalGathererSpawner);
         m_SoldierButton.onClick.AddListener(SoldierSpawner);
-        
         m_CurrentHealthPoints = m_MaxHealthPoints;
     }
 
@@ -45,6 +48,10 @@ public class PlayerBaseController : MonoBehaviour
     void Update()
     {
         float dt = Time.deltaTime;
+        m_GoldText.GetComponent<TextMeshProUGUI>().text = m_GoldAmount.ToString();
+        m_MetalText.GetComponent<TextMeshProUGUI>().text = m_MetalAmount.ToString();
+
+        //m_MetalText.text = m_MetalAmount .ToString();
     }
     
     private void GoldGathererSpawner()

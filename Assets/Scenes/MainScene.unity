@@ -18596,9 +18596,21 @@ PrefabInstance:
     m_TransformParent: {fileID: 2078147213}
     m_Modifications:
     - target: {fileID: -9128329780682341135, guid: 6d259d9687ae5a349a839e022b704fa1, type: 3}
+      propertyPath: m_prueba
+      value: 
+      objectReference: {fileID: 1291923547}
+    - target: {fileID: -9128329780682341135, guid: 6d259d9687ae5a349a839e022b704fa1, type: 3}
       propertyPath: m_Soldier
       value: 
       objectReference: {fileID: 4165648581995572540, guid: ce5bc2e06f0483547a4e74efbf4701bd, type: 3}
+    - target: {fileID: -9128329780682341135, guid: 6d259d9687ae5a349a839e022b704fa1, type: 3}
+      propertyPath: m_GoldText
+      value: 
+      objectReference: {fileID: 1291923547}
+    - target: {fileID: -9128329780682341135, guid: 6d259d9687ae5a349a839e022b704fa1, type: 3}
+      propertyPath: m_MetalText
+      value: 
+      objectReference: {fileID: 1685527625}
     - target: {fileID: -9128329780682341135, guid: 6d259d9687ae5a349a839e022b704fa1, type: 3}
       propertyPath: m_GoldGatherer
       value: 

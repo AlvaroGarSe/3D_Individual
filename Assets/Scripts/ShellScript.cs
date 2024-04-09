@@ -8,8 +8,6 @@ public class ShellScript : MonoBehaviour
 
     public ShellPoolManager m_ShellPoolManager;
 
-    public GameObject m_ExplossionEffect;
-
     private void Awake()
     {
         m_ShellPoolManager = FindObjectOfType<ShellPoolManager>();
