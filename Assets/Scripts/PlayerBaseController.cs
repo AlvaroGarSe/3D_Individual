@@ -79,7 +79,9 @@ public class PlayerBaseController : MonoBehaviour
         {
             m_GoldAmount -= 15;
             m_MetalAmount -= 15;
-            Instantiate(m_Soldier, m_SoldierSpawn.transform.position, m_SoldierSpawn.rotation);
+            GameObject newSoldier = Instantiate(m_Soldier, m_SoldierSpawn.transform.position, m_SoldierSpawn.rotation);
+            newSoldier.tag = "Allied";
+
         }
     }
     private void HeavySoldierSpawner()

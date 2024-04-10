@@ -6,11 +6,14 @@ TagManager:
   tags:
   - EnemyBase
   - Enemy
+  - Shell
+  - Allied
+  - AlliedBase
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - BulletInteractuable
   - Water
   - UI
   - NotWalkable

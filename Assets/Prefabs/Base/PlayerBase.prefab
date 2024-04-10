@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 678101783}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: AttackPointToBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,9 +42,9 @@ GameObject:
   - component: {fileID: 5631631891809095814}
   - component: {fileID: 1938211932}
   - component: {fileID: -9128329780682341135}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: PlayerBase
-  m_TagString: Untagged
+  m_TagString: AlliedBase
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -144,6 +144,8 @@ MonoBehaviour:
   m_MaxHealthPoints: 50
   m_GoldAmount: 1000
   m_MetalAmount: 1000
+  m_GoldText: {fileID: 0}
+  m_MetalText: {fileID: 0}
   m_GoldGathererSpawn: {fileID: 0}
   m_HeavySoldierSpawn: {fileID: 0}
   m_MetalGathererSpawn: {fileID: 0}
@@ -167,6 +169,10 @@ PrefabInstance:
     - target: {fileID: 1954084764598762, guid: 4bda712f3633c1848a137f9f5f310588, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_02 (36)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1954084764598762, guid: 4bda712f3633c1848a137f9f5f310588, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1954084764598762, guid: 4bda712f3633c1848a137f9f5f310588, type: 3}
       propertyPath: m_NavMeshLayer
@@ -233,6 +239,10 @@ PrefabInstance:
     - target: {fileID: 1167530832554912, guid: 14be2c847c5873f40af6081f07f0bc27, type: 3}
       propertyPath: m_Name
       value: SM_Bld_Section_Wall_05 (19)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1167530832554912, guid: 14be2c847c5873f40af6081f07f0bc27, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1167530832554912, guid: 14be2c847c5873f40af6081f07f0bc27, type: 3}
       propertyPath: m_NavMeshLayer
@@ -303,6 +313,10 @@ PrefabInstance:
     - target: {fileID: 1776786320129414, guid: 553d5ab60b93b904896a8af286bdbe32, type: 3}
       propertyPath: m_Name
       value: SM_Env_Sidewalk_Straight_01_SF (100)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1776786320129414, guid: 553d5ab60b93b904896a8af286bdbe32, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1776786320129414, guid: 553d5ab60b93b904896a8af286bdbe32, type: 3}
       propertyPath: m_NavMeshLayer
@@ -379,6 +393,10 @@ PrefabInstance:
       value: SM_Bld_Section_Wall_05 (13)
       objectReference: {fileID: 0}
     - target: {fileID: 1167530832554912, guid: 14be2c847c5873f40af6081f07f0bc27, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1167530832554912, guid: 14be2c847c5873f40af6081f07f0bc27, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
@@ -447,6 +465,10 @@ PrefabInstance:
     - target: {fileID: 1954084764598762, guid: 4bda712f3633c1848a137f9f5f310588, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_02 (33)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1954084764598762, guid: 4bda712f3633c1848a137f9f5f310588, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1954084764598762, guid: 4bda712f3633c1848a137f9f5f310588, type: 3}
       propertyPath: m_NavMeshLayer
@@ -521,6 +543,10 @@ PrefabInstance:
     - target: {fileID: 1192176246735656, guid: 6776058e536873842836a466637e2a97, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Fence_01 (38)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1192176246735656, guid: 6776058e536873842836a466637e2a97, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1192176246735656, guid: 6776058e536873842836a466637e2a97, type: 3}
       propertyPath: m_NavMeshLayer
@@ -601,6 +627,10 @@ PrefabInstance:
       value: SM_Bld_Section_Wall_03 (1)
       objectReference: {fileID: 0}
     - target: {fileID: 1808276462651192, guid: f9cf3ae7e4a962a408af376d301642e9, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808276462651192, guid: f9cf3ae7e4a962a408af376d301642e9, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
@@ -665,6 +695,10 @@ PrefabInstance:
     - target: {fileID: 1042918869242066, guid: 075662da41c3dea46a40c0917389e28c, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ground_Tile_02 (22)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1042918869242066, guid: 075662da41c3dea46a40c0917389e28c, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1042918869242066, guid: 075662da41c3dea46a40c0917389e28c, type: 3}
       propertyPath: m_NavMeshLayer
@@ -733,6 +767,10 @@ PrefabInstance:
       value: SM_Bld_Section_Wall_05 (8)
       objectReference: {fileID: 0}
     - target: {fileID: 1167530832554912, guid: 14be2c847c5873f40af6081f07f0bc27, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1167530832554912, guid: 14be2c847c5873f40af6081f07f0bc27, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
@@ -795,6 +833,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 5631631891809095814}
     m_Modifications:
     - target: {fileID: 1820751437825238, guid: f8a5c3bb2b6733743937b8674612ce52, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1820751437825238, guid: f8a5c3bb2b6733743937b8674612ce52, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
@@ -805,6 +847,10 @@ PrefabInstance:
     - target: {fileID: 1905158911971768, guid: f8a5c3bb2b6733743937b8674612ce52, type: 3}
       propertyPath: m_Name
       value: SM_Bld_Security_WatchStation_01 (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1905158911971768, guid: f8a5c3bb2b6733743937b8674612ce52, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1905158911971768, guid: f8a5c3bb2b6733743937b8674612ce52, type: 3}
       propertyPath: m_NavMeshLayer
@@ -879,6 +925,10 @@ PrefabInstance:
     - target: {fileID: 1192176246735656, guid: 6776058e536873842836a466637e2a97, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Fence_01 (39)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1192176246735656, guid: 6776058e536873842836a466637e2a97, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1192176246735656, guid: 6776058e536873842836a466637e2a97, type: 3}
       propertyPath: m_NavMeshLayer
@@ -959,6 +1009,10 @@ PrefabInstance:
       value: SM_Bld_Section_Wall_05 (12)
       objectReference: {fileID: 0}
     - target: {fileID: 1167530832554912, guid: 14be2c847c5873f40af6081f07f0bc27, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1167530832554912, guid: 14be2c847c5873f40af6081f07f0bc27, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
@@ -1027,6 +1081,10 @@ PrefabInstance:
     - target: {fileID: 1192176246735656, guid: 6776058e536873842836a466637e2a97, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Fence_01 (35)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1192176246735656, guid: 6776058e536873842836a466637e2a97, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1192176246735656, guid: 6776058e536873842836a466637e2a97, type: 3}
       propertyPath: m_NavMeshLayer
@@ -1099,6 +1157,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 5631631891809095814}
     m_Modifications:
     - target: {fileID: 1820751437825238, guid: f8a5c3bb2b6733743937b8674612ce52, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1820751437825238, guid: f8a5c3bb2b6733743937b8674612ce52, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
@@ -1109,6 +1171,10 @@ PrefabInstance:
     - target: {fileID: 1905158911971768, guid: f8a5c3bb2b6733743937b8674612ce52, type: 3}
       propertyPath: m_Name
       value: SM_Bld_Security_WatchStation_01 (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1905158911971768, guid: f8a5c3bb2b6733743937b8674612ce52, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1905158911971768, guid: f8a5c3bb2b6733743937b8674612ce52, type: 3}
       propertyPath: m_NavMeshLayer
@@ -1185,6 +1251,10 @@ PrefabInstance:
       value: SM_Bld_Section_Wall_05 (10)
       objectReference: {fileID: 0}
     - target: {fileID: 1167530832554912, guid: 14be2c847c5873f40af6081f07f0bc27, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1167530832554912, guid: 14be2c847c5873f40af6081f07f0bc27, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
@@ -1249,6 +1319,10 @@ PrefabInstance:
     - target: {fileID: 1192176246735656, guid: 6776058e536873842836a466637e2a97, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Fence_01 (40)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1192176246735656, guid: 6776058e536873842836a466637e2a97, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1192176246735656, guid: 6776058e536873842836a466637e2a97, type: 3}
       propertyPath: m_NavMeshLayer
@@ -1329,6 +1403,10 @@ PrefabInstance:
       value: SM_Bld_Large_Part_01 (16)
       objectReference: {fileID: 0}
     - target: {fileID: 1372433763850600, guid: 5f257b0a01530674191819b4bf513840, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1372433763850600, guid: 5f257b0a01530674191819b4bf513840, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
@@ -1407,6 +1485,10 @@ PrefabInstance:
       value: SM_Prop_Barrier_02 (34)
       objectReference: {fileID: 0}
     - target: {fileID: 1954084764598762, guid: 4bda712f3633c1848a137f9f5f310588, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1954084764598762, guid: 4bda712f3633c1848a137f9f5f310588, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
@@ -1481,6 +1563,10 @@ PrefabInstance:
       value: SM_Bld_Section_Wall_05 (16)
       objectReference: {fileID: 0}
     - target: {fileID: 1167530832554912, guid: 14be2c847c5873f40af6081f07f0bc27, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1167530832554912, guid: 14be2c847c5873f40af6081f07f0bc27, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
@@ -1551,6 +1637,10 @@ PrefabInstance:
       value: SM_Bld_Section_Wall_05 (15)
       objectReference: {fileID: 0}
     - target: {fileID: 1167530832554912, guid: 14be2c847c5873f40af6081f07f0bc27, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1167530832554912, guid: 14be2c847c5873f40af6081f07f0bc27, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
@@ -1619,6 +1709,10 @@ PrefabInstance:
     - target: {fileID: 1192176246735656, guid: 6776058e536873842836a466637e2a97, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Fence_01 (36)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1192176246735656, guid: 6776058e536873842836a466637e2a97, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1192176246735656, guid: 6776058e536873842836a466637e2a97, type: 3}
       propertyPath: m_NavMeshLayer
@@ -1699,6 +1793,10 @@ PrefabInstance:
       value: SM_Env_Railing_02 (30)
       objectReference: {fileID: 0}
     - target: {fileID: 1936039477935502, guid: 8a4f2276ebfcdc541ac877445abef006, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1936039477935502, guid: 8a4f2276ebfcdc541ac877445abef006, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
@@ -1763,6 +1861,10 @@ PrefabInstance:
     - target: {fileID: 1192176246735656, guid: 6776058e536873842836a466637e2a97, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Fence_01 (32)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1192176246735656, guid: 6776058e536873842836a466637e2a97, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1192176246735656, guid: 6776058e536873842836a466637e2a97, type: 3}
       propertyPath: m_NavMeshLayer
@@ -1839,6 +1941,10 @@ PrefabInstance:
       value: SM_Bld_Section_Wall_05 (14)
       objectReference: {fileID: 0}
     - target: {fileID: 1167530832554912, guid: 14be2c847c5873f40af6081f07f0bc27, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1167530832554912, guid: 14be2c847c5873f40af6081f07f0bc27, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
@@ -1907,6 +2013,10 @@ PrefabInstance:
     - target: {fileID: 1936039477935502, guid: 8a4f2276ebfcdc541ac877445abef006, type: 3}
       propertyPath: m_Name
       value: SM_Env_Railing_02 (31)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1936039477935502, guid: 8a4f2276ebfcdc541ac877445abef006, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1936039477935502, guid: 8a4f2276ebfcdc541ac877445abef006, type: 3}
       propertyPath: m_NavMeshLayer
@@ -1983,6 +2093,10 @@ PrefabInstance:
       value: SM_Prop_Door_02 (17)
       objectReference: {fileID: 0}
     - target: {fileID: 1594424492501424, guid: dbe584c23a4a0804da19beb55b3e2433, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1594424492501424, guid: dbe584c23a4a0804da19beb55b3e2433, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
@@ -2047,6 +2161,10 @@ PrefabInstance:
     - target: {fileID: 1716819399323800, guid: e6af98424eec7ef459a66398b4332b72, type: 3}
       propertyPath: m_Name
       value: SM_Bld_Section_Door_06 (14)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1716819399323800, guid: e6af98424eec7ef459a66398b4332b72, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1716819399323800, guid: e6af98424eec7ef459a66398b4332b72, type: 3}
       propertyPath: m_NavMeshLayer
@@ -2121,6 +2239,10 @@ PrefabInstance:
       value: SM_Bld_Section_Wall_05 (18)
       objectReference: {fileID: 0}
     - target: {fileID: 1167530832554912, guid: 14be2c847c5873f40af6081f07f0bc27, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1167530832554912, guid: 14be2c847c5873f40af6081f07f0bc27, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
@@ -2189,6 +2311,10 @@ PrefabInstance:
     - target: {fileID: 1936039477935502, guid: 8a4f2276ebfcdc541ac877445abef006, type: 3}
       propertyPath: m_Name
       value: SM_Env_Railing_02 (33)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1936039477935502, guid: 8a4f2276ebfcdc541ac877445abef006, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1936039477935502, guid: 8a4f2276ebfcdc541ac877445abef006, type: 3}
       propertyPath: m_NavMeshLayer
@@ -2261,6 +2387,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 6079184658436203129}
     m_Modifications:
     - target: {fileID: 1117716727441396, guid: 4caa1debd226fcd4884eca0c619ce93f, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1117716727441396, guid: 4caa1debd226fcd4884eca0c619ce93f, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
@@ -2325,6 +2455,10 @@ PrefabInstance:
     - target: {fileID: 1167530832554912, guid: 14be2c847c5873f40af6081f07f0bc27, type: 3}
       propertyPath: m_Name
       value: SM_Bld_Section_Wall_05 (17)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1167530832554912, guid: 14be2c847c5873f40af6081f07f0bc27, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1167530832554912, guid: 14be2c847c5873f40af6081f07f0bc27, type: 3}
       propertyPath: m_NavMeshLayer
@@ -2395,6 +2529,10 @@ PrefabInstance:
     - target: {fileID: 1716819399323800, guid: e6af98424eec7ef459a66398b4332b72, type: 3}
       propertyPath: m_Name
       value: SM_Bld_Section_Door_06 (13)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1716819399323800, guid: e6af98424eec7ef459a66398b4332b72, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1716819399323800, guid: e6af98424eec7ef459a66398b4332b72, type: 3}
       propertyPath: m_NavMeshLayer
@@ -2469,6 +2607,10 @@ PrefabInstance:
       value: SM_Env_Railing_02 (32)
       objectReference: {fileID: 0}
     - target: {fileID: 1936039477935502, guid: 8a4f2276ebfcdc541ac877445abef006, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1936039477935502, guid: 8a4f2276ebfcdc541ac877445abef006, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
@@ -2533,6 +2675,10 @@ PrefabInstance:
     - target: {fileID: 1372433763850600, guid: 5f257b0a01530674191819b4bf513840, type: 3}
       propertyPath: m_Name
       value: SM_Bld_Large_Part_01 (15)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1372433763850600, guid: 5f257b0a01530674191819b4bf513840, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1372433763850600, guid: 5f257b0a01530674191819b4bf513840, type: 3}
       propertyPath: m_NavMeshLayer
@@ -2613,6 +2759,10 @@ PrefabInstance:
       value: SM_Prop_Fence_01 (37)
       objectReference: {fileID: 0}
     - target: {fileID: 1192176246735656, guid: 6776058e536873842836a466637e2a97, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1192176246735656, guid: 6776058e536873842836a466637e2a97, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
@@ -2691,6 +2841,10 @@ PrefabInstance:
       value: SM_Prop_Fence_01 (34)
       objectReference: {fileID: 0}
     - target: {fileID: 1192176246735656, guid: 6776058e536873842836a466637e2a97, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1192176246735656, guid: 6776058e536873842836a466637e2a97, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
@@ -2765,6 +2919,10 @@ PrefabInstance:
       value: SM_Bld_Section_Wall_03 (1)
       objectReference: {fileID: 0}
     - target: {fileID: 1808276462651192, guid: f9cf3ae7e4a962a408af376d301642e9, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808276462651192, guid: f9cf3ae7e4a962a408af376d301642e9, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
@@ -2829,6 +2987,10 @@ PrefabInstance:
     - target: {fileID: 1192176246735656, guid: 6776058e536873842836a466637e2a97, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Fence_01 (41)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1192176246735656, guid: 6776058e536873842836a466637e2a97, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1192176246735656, guid: 6776058e536873842836a466637e2a97, type: 3}
       propertyPath: m_NavMeshLayer
@@ -2909,6 +3071,10 @@ PrefabInstance:
       value: SM_Prop_Door_02 (18)
       objectReference: {fileID: 0}
     - target: {fileID: 1594424492501424, guid: dbe584c23a4a0804da19beb55b3e2433, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1594424492501424, guid: dbe584c23a4a0804da19beb55b3e2433, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
@@ -2973,6 +3139,10 @@ PrefabInstance:
     - target: {fileID: 1954084764598762, guid: 4bda712f3633c1848a137f9f5f310588, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Barrier_02 (35)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1954084764598762, guid: 4bda712f3633c1848a137f9f5f310588, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1954084764598762, guid: 4bda712f3633c1848a137f9f5f310588, type: 3}
       propertyPath: m_NavMeshLayer
@@ -3041,6 +3211,10 @@ PrefabInstance:
       value: SM_Bld_Section_Wall_05 (11)
       objectReference: {fileID: 0}
     - target: {fileID: 1167530832554912, guid: 14be2c847c5873f40af6081f07f0bc27, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1167530832554912, guid: 14be2c847c5873f40af6081f07f0bc27, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
@@ -3102,6 +3276,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5010842646058427389}
     m_Modifications:
+    - target: {fileID: 1117716727441396, guid: 4caa1debd226fcd4884eca0c619ce93f, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1117716727441396, guid: 4caa1debd226fcd4884eca0c619ce93f, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
@@ -3169,6 +3347,10 @@ PrefabInstance:
       value: SM_Bld_Section_Wall_05 (9)
       objectReference: {fileID: 0}
     - target: {fileID: 1167530832554912, guid: 14be2c847c5873f40af6081f07f0bc27, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1167530832554912, guid: 14be2c847c5873f40af6081f07f0bc27, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
@@ -3233,6 +3415,10 @@ PrefabInstance:
     - target: {fileID: 1192176246735656, guid: 6776058e536873842836a466637e2a97, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Fence_01 (33)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1192176246735656, guid: 6776058e536873842836a466637e2a97, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1192176246735656, guid: 6776058e536873842836a466637e2a97, type: 3}
       propertyPath: m_NavMeshLayer
@@ -3309,6 +3495,10 @@ PrefabInstance:
       value: SM_Env_Sidewalk_Straight_01_SF (101)
       objectReference: {fileID: 0}
     - target: {fileID: 1776786320129414, guid: 553d5ab60b93b904896a8af286bdbe32, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1776786320129414, guid: 553d5ab60b93b904896a8af286bdbe32, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
@@ -3381,6 +3571,10 @@ PrefabInstance:
     - target: {fileID: 1042918869242066, guid: 075662da41c3dea46a40c0917389e28c, type: 3}
       propertyPath: m_Name
       value: SM_Env_Ground_Tile_02 (23)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1042918869242066, guid: 075662da41c3dea46a40c0917389e28c, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1042918869242066, guid: 075662da41c3dea46a40c0917389e28c, type: 3}
       propertyPath: m_NavMeshLayer

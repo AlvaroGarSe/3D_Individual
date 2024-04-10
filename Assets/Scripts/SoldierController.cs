@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -7,6 +8,7 @@ public class SoldierController : MonoBehaviour
 {
     public int m_MaxHealthPoints;
     public int m_CurrentHealthPoints;
+    public bool m_Allied;
 
     public GameObject m_EnemyBase;
     public List<GameObject> m_EnemyList = new List<GameObject>();
@@ -29,7 +31,7 @@ public class SoldierController : MonoBehaviour
     public float m_StandbyTime = 1.0f;
     public float m_RemainingStandbyTime = 0.0f;
 
-    public float m_FireRate = 1.0f;
+    public float m_FireRate = 2.0f;
     public float m_RemainingFireRate = 0.0f;
 
     public GameObject m_SoldierBody;
@@ -43,9 +45,19 @@ public class SoldierController : MonoBehaviour
         m_NavMeshAgent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         m_RemainingStandbyTime = m_StandbyTime;
         m_CurrentHealthPoints = m_MaxHealthPoints;
+        m_RemainingFireRate = m_FireRate;
         m_ShellPoolManager = GameObject.Find("ShellPoolManager").GetComponent<ShellPoolManager>();
         m_Animator = GetComponent<Animator>();
-        m_EnemyBase = GameObject.Find("EnemyBase");
+        if(m_Allied)
+        {
+            m_EnemyBase = GameObject.Find("EnemyBase");
+        }
+        else { m_EnemyBase = GameObject.Find("PlayerBaseBuild"); }
+        
+        if(gameObject.CompareTag("Allied"))
+        {
+            m_Allied = true;
+        }else { m_Allied=false; }
     }
 
     // Update is called once per frame
@@ -61,14 +73,23 @@ public class SoldierController : MonoBehaviour
             case SoldierStates.SELECT_AND_GO_TO_POINT:
                 break;
             case SoldierStates.FIRING_BASE:
-
+                if(m_CurrentHealthPoints > 0)
+                { 
+                    m_NavMeshAgent.velocity = Vector3.zero;
+                    TurretLooksAtPlayer(dt);
+                    FireEnemy(dt);
+                }
+                
                 break;
             case SoldierStates.FIRING_ENEMY:
-                TurretLooksAtPlayer(dt);
-                CheckEnemy();
-                FireEnemy(dt);
+                if(m_CurrentHealthPoints > 0) 
+                {
+                    CheckEnemy();
+                    m_NavMeshAgent.velocity = Vector3.zero;
+                    TurretLooksAtPlayer(dt);
+                    FireEnemy(dt);
+                }
                 break;
-
         }
 
     }
@@ -82,13 +103,21 @@ public class SoldierController : MonoBehaviour
             case SoldierStates.SELECT_AND_GO_TO_POINT:
                 m_CurrentState = SoldierStates.SELECT_AND_GO_TO_POINT;
                 m_Animator.SetBool("IsWalking", true);
+                m_Animator.SetBool("IsFiring", false);
                 m_NavMeshAgent.isStopped = false;
                 m_NavMeshAgent.SetDestination(m_EnemyBase.transform.position);
                 break;
             case SoldierStates.FIRING_BASE:
-                
+                m_Animator.SetTrigger("Shoot");
+                m_Animator.SetBool("IsFiring", true);
+                Debug.Log("Baseee");
+                m_EnemyList.Insert(0, m_EnemyBase);
+                m_NavMeshAgent.isStopped = true;
+                m_CurrentState = SoldierStates.FIRING_BASE;
                 break;
             case SoldierStates.FIRING_ENEMY:
+                m_Animator.SetTrigger("Shoot");
+                m_Animator.SetBool("IsFiring", true);
                 m_NavMeshAgent.isStopped= true;
                 m_CurrentState = SoldierStates.FIRING_ENEMY;
                 break;
@@ -110,27 +139,71 @@ public class SoldierController : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("EnemyBase"))
+        if (m_Allied)
         {
-            OnStateEnter(SoldierStates.SELECT_AND_GO_TO_POINT);
-        }
-        if (other.CompareTag("Enemy"))
-        {
-            m_EnemyList.Add(other.gameObject);
-            if(m_CurrentState != SoldierStates.FIRING_ENEMY)
+            if (other.CompareTag("EnemyBase"))
             {
-                OnStateEnter(SoldierStates.FIRING_ENEMY);
+                OnStateEnter(SoldierStates.FIRING_BASE);
             }
-            
+            if (other.CompareTag("Enemy") && !other.isTrigger)
+            {
+                m_EnemyList.Add(other.gameObject);
+                if (m_CurrentState != SoldierStates.FIRING_ENEMY)
+                {
+                    OnStateEnter(SoldierStates.FIRING_ENEMY);
+                }
+
+            }
+        }
+        else
+        {
+            if (other.CompareTag("AlliedBase"))
+            {
+                m_EnemyList.Clear();
+                m_EnemyList[0] = other.gameObject;
+                OnStateEnter(SoldierStates.SELECT_AND_GO_TO_POINT);
+            }
+            if (other.CompareTag("Allied") && !other.isTrigger)
+            {
+                m_EnemyList.Add(other.gameObject);
+                if (m_CurrentState != SoldierStates.FIRING_ENEMY)
+                {
+                    OnStateEnter(SoldierStates.FIRING_ENEMY);
+                }
+
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if(m_Allied)
+        {
+            if (other.gameObject.tag.Equals("Enemy"))
+            {
+                m_EnemyList.Remove(other.gameObject);
+            }
+        }else
+        {
+            if (other.gameObject.tag.Equals("Allied"))
+            {
+                m_EnemyList.Remove(other.gameObject);
+            }
+        }
+        
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.CompareTag("Shell"))
+        {
+            TakeDamage(1);
         }
     }
 
     private void FireEnemy(float dt)
-    {
-        m_Animator.SetBool("IsFiring", true);   
+    { 
         if (m_RemainingFireRate <= 0)
         {
-            m_Animator.SetTrigger("Shoot");
             m_RemainingFireRate = m_FireRate;
             SpawnShell();
         }
@@ -139,16 +212,9 @@ public class SoldierController : MonoBehaviour
             m_RemainingFireRate -= dt;
         }
     }
-
-    private void Shoot()
-    {
-        SpawnShell();
-    }
     private void TurretLooksAtPlayer(float dt)
     {
-        Debug.Log("mirar");
         m_WhereToAim = m_EnemyList[0].GetComponent<Transform>();
-        m_NavMeshAgent.velocity = Vector3.zero;
         Vector3 lookPos = m_WhereToAim.transform.position;
         Vector3 targetDirection = m_WhereToAim.transform.position - transform.position;
         lookPos.y = 0;
@@ -158,17 +224,20 @@ public class SoldierController : MonoBehaviour
 
     private void CheckEnemy()
     {
-        for (int i = 0; i < m_EnemyList.Count; i++)
-        {
-            if (m_EnemyList[i].IsDestroyed())
-            {
-                m_EnemyList.RemoveAt(i);
-            }
-        }
-
         if (m_EnemyList.Count <= 0)
-        { 
+        {
             OnStateEnter(SoldierStates.SELECT_AND_GO_TO_POINT);
+        }
+        else
+        {
+            for (int i = 0; i < m_EnemyList.Count; i++)
+            {
+                if (m_EnemyList[i] == null || !m_EnemyList[i].activeInHierarchy)
+                {
+                    m_EnemyList.RemoveAt(i);
+                    OnStateEnter(SoldierStates.SELECT_AND_GO_TO_POINT);
+                }
+            }
         }
     }
     public void TakeDamage(int damage)
@@ -182,7 +251,7 @@ public class SoldierController : MonoBehaviour
 
     private void SpawnShell()
     {
-        GameObject shell = m_ShellPoolManager.TakeShell();
+        GameObject shell = m_ShellPoolManager.TakeShell(m_Allied);
 
         shell.transform.position = m_BulletSpawnPoint.position;
         shell.transform.rotation = m_BulletSpawnPoint.rotation;

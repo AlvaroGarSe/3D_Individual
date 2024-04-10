@@ -5,6 +5,7 @@ using UnityEngine;
 public class ShellPoolManager : MonoBehaviour
 {
     public List<GameObject> shellPool = new List<GameObject>();
+    public ShellScript ScriptBullet;
 
     public GameObject m_ShellPrefab;
     public int m_PoolSize;
@@ -15,15 +16,25 @@ public class ShellPoolManager : MonoBehaviour
         {
             GameObject shell = Instantiate(m_ShellPrefab);
             shell.SetActive(false);
+            ScriptBullet = shell.GetComponent<ShellScript>();
+            if (i < m_PoolSize / 2)
+            {
+                ScriptBullet.AlliedBullet(true);
+
+            } else
+            {
+                ScriptBullet.AlliedBullet(false);
+            }
             shellPool.Add(shell);
         }
     }
 
-    public GameObject TakeShell()
+    public GameObject TakeShell(bool Allied)
     {
         foreach (GameObject shell in shellPool)
         {
-            if (!shell.activeSelf)
+            ScriptBullet = shell.GetComponent<ShellScript>();
+            if (!shell.activeSelf && ScriptBullet.m_AlliedBullet == Allied)
             {
                 return shell;
             }
@@ -31,6 +42,8 @@ public class ShellPoolManager : MonoBehaviour
 
         GameObject newShell = Instantiate(m_ShellPrefab);
         newShell.SetActive(false);
+        ScriptBullet = newShell.GetComponent<ShellScript>();
+        ScriptBullet.m_AlliedBullet = Allied;
         shellPool.Add(newShell);
         return newShell;
     }
@@ -39,6 +52,4 @@ public class ShellPoolManager : MonoBehaviour
     {
         shell.SetActive(false);
     }
-    
-    
 }

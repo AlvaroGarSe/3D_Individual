@@ -14,6 +14,8 @@ public class GoldGathererController : MonoBehaviour
     public GameObject m_Base;
     private PlayerBaseController m_BaseScript;
 
+    public bool IsDead = false;
+
     public Animator m_Animator;
 
     public enum GoldGathererStates
@@ -166,6 +168,7 @@ public class GoldGathererController : MonoBehaviour
 
     private void DestroyObject()
     {
+        this.gameObject.SetActive(false);
         Destroy (gameObject);
     }
 

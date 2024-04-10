@@ -6,14 +6,14 @@ public class ShellScript : MonoBehaviour
 {
     public float lifeTime =5f;
 
+    public bool m_AlliedBullet;
+
     public ShellPoolManager m_ShellPoolManager;
 
     private void Awake()
     {
         m_ShellPoolManager = FindObjectOfType<ShellPoolManager>();
     }
-
-
     // Update is called once per frame
     void Update()
     {
@@ -27,14 +27,35 @@ public class ShellScript : MonoBehaviour
     private void OnEnable()
     {
         lifeTime = 5f;
+        if (!m_AlliedBullet)
+        {
+            //Turns enmy bullets into Red and the allied into Blue
+            this.GetComponent<Renderer>().material.color = Color.red;
+        }
+        else { this.GetComponent<Renderer>().material.color = Color.blue; }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision other)
     {
-        if (collision.gameObject.GetComponent<SoldierController>())
-        {
-            collision.gameObject.GetComponent<SoldierController>().TakeDamage(2);
-        }
-        m_ShellPoolManager.ReturnShell(gameObject);
+            if (m_AlliedBullet)
+            {
+                if (other.gameObject.CompareTag("Enemy"))
+                {
+
+                    m_ShellPoolManager.ReturnShell(gameObject);
+                }
+            }
+            else
+            {
+                if (other.gameObject.CompareTag("Allied"))
+                {
+                    m_ShellPoolManager.ReturnShell(gameObject);
+                }
+            }
+        
+    }
+    public void AlliedBullet(bool Allied)
+    {
+        m_AlliedBullet = Allied;
     }
 }
