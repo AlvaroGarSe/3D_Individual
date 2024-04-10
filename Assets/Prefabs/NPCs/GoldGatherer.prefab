@@ -2404,6 +2404,7 @@ GameObject:
   - component: {fileID: 8143783991332170232}
   - component: {fileID: 8143783991332170181}
   - component: {fileID: 6402451468021690170}
+  - component: {fileID: 7685756389090579293}
   m_Layer: 3
   m_Name: GoldGatherer
   m_TagString: Untagged
@@ -2523,6 +2524,29 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
+--- !u!136 &7685756389090579293
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8144496979518760783}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2.6033149
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.80165744, z: 0}
 --- !u!1 &8144497944670354743
 GameObject:
   m_ObjectHideFlags: 0

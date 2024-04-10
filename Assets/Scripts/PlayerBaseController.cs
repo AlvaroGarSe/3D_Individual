@@ -94,4 +94,13 @@ public class PlayerBaseController : MonoBehaviour
 
         }
     }
+
+    public void GetResource (bool IsGold)
+    {
+        if (IsGold)
+        {
+            m_GoldAmount++;
+        }
+        else { m_MetalAmount++;}
+    }
 }
