@@ -15,10 +15,9 @@ public class GathererController : MonoBehaviour
 
     public GameObject m_Base;
     private PlayerBaseController m_BaseScript;
-
-    public bool IsDead = false;
-
+    private EnemyBaseController m_EnemyBaseScript;
     public Animator m_Animator;
+    private ShellScript m_ShellScript;
 
     public enum GoldGathererStates
     {
@@ -61,15 +60,37 @@ public class GathererController : MonoBehaviour
         }
         if (m_GoldGatherer)
         {
-            m_GoldMine = GameObject.Find("GoldGatheringPoint").transform;
-            m_GoldRunningPoint = GameObject.Find("GoldRunningPoint").transform;
+            if(m_Allied)
+            {
+                m_GoldMine = GameObject.Find("GoldGatheringPoint").transform;
+                m_GoldRunningPoint = GameObject.Find("GoldRunningPoint").transform;
+            }
+            else
+            {
+                m_GoldMine = GameObject.Find("GoldGatheringPointEnemy").transform;
+                m_GoldRunningPoint = GameObject.Find("GoldRunningPointEnemy").transform;
+            }
         }
         else
         {
-            m_GoldMine = GameObject.Find("MetalGatheringPoint").transform;
-            m_GoldRunningPoint = GameObject.Find("MetalRunningPoint").transform;
+            if(m_Allied)
+            {
+                m_GoldMine = GameObject.Find("MetalGatheringPoint").transform;
+                m_GoldRunningPoint = GameObject.Find("MetalRunningPoint").transform;
+            }else
+            {
+                m_GoldMine = GameObject.Find("MetalGatheringPointEnemy").transform;
+                m_GoldRunningPoint = GameObject.Find("MetalRunningPointEnemy").transform;
+            }
         }
-        m_BaseScript = m_Base.GetComponent<PlayerBaseController>();
+        if(m_Allied)
+        {
+            m_BaseScript = m_Base.GetComponent<PlayerBaseController>();
+        }
+        else
+        {
+            m_EnemyBaseScript = m_Base.GetComponent<EnemyBaseController>();
+        }
     }
 
     // Update is called once per frame
@@ -118,24 +139,31 @@ public class GathererController : MonoBehaviour
         {
             case GoldGathererStates.GO_TO_MINE:
                 m_Animator.SetBool("IsRuning", true);
+                m_Animator.SetBool("Mining", false);
+                m_Animator.SetBool("Enemy",false);
                 m_CurrentState = GoldGathererStates.GO_TO_MINE;
                 m_NavMeshAgent.isStopped = false;
                 m_NavMeshAgent.SetDestination(m_GoldMine.position);
                 break;
             case GoldGathererStates.MINING:
                 m_Animator.SetBool("IsRuning", false);
+                m_Animator.SetBool("IsMining", true);
                 m_NavMeshAgent.isStopped=true;
                 m_CurrentState = GoldGathererStates.MINING;
                 break;
             case GoldGathererStates.ESCAPE:
                 m_CurrentState = GoldGathererStates.ESCAPE;
-                m_Animator.SetBool("IsRunning", true);
+                m_Animator.SetBool("IsRuning", true);
                 m_Animator.SetBool("Enemy", true);
+                m_Animator.SetBool("Mining", false);
                 m_NavMeshAgent.isStopped = false;
                 m_NavMeshAgent.SetDestination(m_GoldRunningPoint.position);
                 break;
             case GoldGathererStates.WAITING_ENEMY:
+                m_Animator.SetBool("IsRuning", false);
+                m_Animator.SetBool("Mining", false);
                 m_NavMeshAgent.isStopped = true;
+                m_CurrentState = GoldGathererStates.WAITING_ENEMY;
                 break;
         }
     }
@@ -159,9 +187,10 @@ public class GathererController : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
+        m_ShellScript = collision.gameObject.GetComponent<ShellScript>();
         if(collision.gameObject.CompareTag("Shell"))
         {
-            TakeDamage(1);
+            TakeDamage(m_ShellScript.m_Damage);
         }
     }
 
@@ -187,7 +216,14 @@ public class GathererController : MonoBehaviour
         else
         {
             m_RemainingMiningTime = m_MiningTime;
-            m_BaseScript.GetResource(m_GoldGatherer);
+            if (m_Allied)
+            {
+                m_BaseScript.GetResource(m_GoldGatherer);
+            }else
+            {
+                m_EnemyBaseScript.GetResource(m_GoldGatherer);
+            }
+            
         }
 
     }
@@ -216,6 +252,16 @@ public class GathererController : MonoBehaviour
         this.gameObject.SetActive(false);
         Destroy (gameObject);
     }
+
+    public bool IsDead()
+    {
+        if(m_CurrentHealthPoints < 0)
+        {
+            return true;
+        }
+        return false;
+    }
+    
 
 }
 

@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Xml;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerBaseController : MonoBehaviour
@@ -29,10 +31,15 @@ public class PlayerBaseController : MonoBehaviour
     public Button m_HeavySoldierButton;
     public Button m_MetalGathererButton;
     public Button m_SoldierButton;
-    
 
+    private GathererController m_GoldGathererScript;
+    private GathererController m_MetalGathererScript;
+    public bool m_HasGoldGatherer;
+    public bool m_HasMetalGatherer;
+    private SoldierController m_SoldierScript;
+    private SoldierController m_HeavySoldierScript;
 
-
+    private ShellScript m_ShellScript;
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +49,10 @@ public class PlayerBaseController : MonoBehaviour
         m_MetalGathererButton.onClick.AddListener(MetalGathererSpawner);
         m_SoldierButton.onClick.AddListener(SoldierSpawner);
         m_CurrentHealthPoints = m_MaxHealthPoints;
+        m_HasGoldGatherer = false;
+        m_HasMetalGatherer = false;
+        m_GoldAmount = 10;
+        m_MetalAmount = 10;
     }
 
     // Update is called once per frame
@@ -50,17 +61,46 @@ public class PlayerBaseController : MonoBehaviour
         float dt = Time.deltaTime;
         m_GoldText.GetComponent<TextMeshProUGUI>().text = m_GoldAmount.ToString();
         m_MetalText.GetComponent<TextMeshProUGUI>().text = m_MetalAmount.ToString();
-
-        //m_MetalText.text = m_MetalAmount .ToString();
+        if(!m_HasGoldGatherer && m_GoldGathererScript.m_CurrentHealthPoints <= 0) { m_HasGoldGatherer = false; }
+        if(!m_HasMetalGatherer && m_MetalGathererScript.m_CurrentHealthPoints <= 0) { m_HasMetalGatherer = false;}
     }
-    
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Shell"))
+        {
+            m_ShellScript = collision.gameObject.GetComponent<ShellScript>();
+            if(!m_ShellScript.m_AlliedBullet)
+            {
+                TakeDamage(m_ShellScript.m_Damage);
+            }
+        }
+    }
+
+    private void TakeDamage(int damage)
+    {
+        m_CurrentHealthPoints -= damage;
+        if(m_CurrentHealthPoints <= 0)
+        {
+            SceneManager.LoadScene("EndSceneLose");
+        }
+    }
+
     private void GoldGathererSpawner()
     {
         if (m_GoldAmount >= 1 && m_MetalAmount >= 5)
         {
-            m_GoldAmount -= 1;
-            m_MetalAmount -= 5;
-            Instantiate(m_GoldGatherer, m_GoldGathererSpawn.transform.position, m_GoldGathererSpawn.rotation);
+            if(!m_HasGoldGatherer)
+            {
+                m_GoldAmount -= 1;
+                m_MetalAmount -= 5;
+                GameObject newGold = Instantiate(m_GoldGatherer, m_GoldGathererSpawn.transform.position, m_GoldGathererSpawn.rotation);
+                newGold.tag = "Allied";
+                m_GoldGathererScript = newGold.GetComponent<GathererController>();
+                m_GoldGathererScript.m_Allied = true;
+                m_GoldGathererScript.m_GoldGatherer = true;
+                m_HasGoldGatherer = true;
+            }
         }
     }
     
@@ -68,9 +108,17 @@ public class PlayerBaseController : MonoBehaviour
     {
         if (m_GoldAmount >= 5 && m_MetalAmount >= 1)
         {
-            m_GoldAmount -= 5;
-            m_MetalAmount -= 1;
-            Instantiate(m_MetalGatherer, m_MetalGathererSpawn.transform.position, m_MetalGathererSpawn.rotation);
+            if (!m_HasMetalGatherer)
+            {
+                m_GoldAmount -= 5;
+                m_MetalAmount -= 1;
+                GameObject newMetal = Instantiate(m_MetalGatherer, m_MetalGathererSpawn.transform.position, m_MetalGathererSpawn.rotation);
+                newMetal.tag = "Allied";
+                m_MetalGathererScript = newMetal.GetComponent<GathererController>();
+                m_MetalGathererScript.m_Allied = true;
+                m_MetalGathererScript.m_GoldGatherer = false;
+                m_HasMetalGatherer = true;
+            }
         }
     }
     private void SoldierSpawner()
@@ -81,7 +129,8 @@ public class PlayerBaseController : MonoBehaviour
             m_MetalAmount -= 15;
             GameObject newSoldier = Instantiate(m_Soldier, m_SoldierSpawn.transform.position, m_SoldierSpawn.rotation);
             newSoldier.tag = "Allied";
-
+            m_SoldierScript = newSoldier.GetComponent<SoldierController>();
+            m_SoldierScript.m_Allied = true;
         }
     }
     private void HeavySoldierSpawner()
@@ -90,8 +139,10 @@ public class PlayerBaseController : MonoBehaviour
         {
             m_GoldAmount -= 30;
             m_MetalAmount -= 30;
-            Instantiate(m_HeavySoldier, m_HeavySoldierSpawn.transform.position, m_HeavySoldierSpawn.rotation);
-
+            GameObject newHeavySoldier = Instantiate(m_HeavySoldier, m_HeavySoldierSpawn.transform.position, m_HeavySoldierSpawn.rotation);
+            newHeavySoldier.tag = "Allied";
+            m_HeavySoldierScript = newHeavySoldier.GetComponent<SoldierController>();
+            m_HeavySoldierScript.m_Allied = true;
         }
     }
 

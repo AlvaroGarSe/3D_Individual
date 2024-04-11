@@ -34,10 +34,12 @@ public class SoldierController : MonoBehaviour
     public float m_FireRate = 2.0f;
     public float m_RemainingFireRate = 0.0f;
 
-    public GameObject m_SoldierBody;
     public Transform m_BulletSpawnPoint;
     public Transform m_WhereToAim;
     private ShellPoolManager m_ShellPoolManager;
+    public bool m_IsHeavy;
+    private int m_Damage;
+    private ShellScript m_ShellScript;
 
     // Start is called before the first frame update
     void Start()
@@ -58,6 +60,11 @@ public class SoldierController : MonoBehaviour
         {
             m_Allied = true;
         }else { m_Allied=false; }
+        if(m_IsHeavy) { m_Damage = 2; }
+        else
+        {
+            m_Damage = 1;
+        }
     }
 
     // Update is called once per frame
@@ -196,7 +203,8 @@ public class SoldierController : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Shell"))
         {
-            TakeDamage(1);
+            m_ShellScript = collision.gameObject.GetComponent<ShellScript>();
+            TakeDamage(m_ShellScript.m_Damage);
         }
     }
 
@@ -251,7 +259,7 @@ public class SoldierController : MonoBehaviour
 
     private void SpawnShell()
     {
-        GameObject shell = m_ShellPoolManager.TakeShell(m_Allied);
+        GameObject shell = m_ShellPoolManager.TakeShell(m_Allied,m_Damage);
 
         shell.transform.position = m_BulletSpawnPoint.position;
         shell.transform.rotation = m_BulletSpawnPoint.rotation;

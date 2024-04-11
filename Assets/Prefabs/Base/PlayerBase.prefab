@@ -126,8 +126,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 22.822813, y: 9.094497, z: 15.594076}
-  m_Center: {x: 0.14845467, y: 4.2030807, z: 1.0422583}
+  m_Size: {x: 22.822813, y: 9.094497, z: 12.18639}
+  m_Center: {x: 0.14845467, y: 4.2030807, z: -0.66158485}
 --- !u!114 &-9128329780682341135
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,6 +158,9 @@ MonoBehaviour:
   m_HeavySoldierButton: {fileID: 0}
   m_MetalGathererButton: {fileID: 0}
   m_SoldierButton: {fileID: 0}
+  m_HasGoldGatherer: 0
+  m_HasMetalGatherer: 0
+  aaaaa: 0
 --- !u!1001 &3128393506659606
 PrefabInstance:
   m_ObjectHideFlags: 0

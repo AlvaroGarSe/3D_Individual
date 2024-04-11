@@ -2831,9 +2831,9 @@ GameObject:
   - component: {fileID: 4080236584648454572}
   - component: {fileID: 4164674981647009049}
   - component: {fileID: 3808051400957679214}
+  - component: {fileID: -2307785485394910013}
   - component: {fileID: 4164674983045214412}
   - component: {fileID: -3765559734666530111}
-  - component: {fileID: -2307785485394910013}
   m_Layer: 3
   m_Name: Soldier
   m_TagString: Untagged
@@ -2927,9 +2927,32 @@ MonoBehaviour:
   m_RemainingStandbyTime: 0
   m_FireRate: 2
   m_RemainingFireRate: 0
-  m_SoldierBody: {fileID: 4163638327696583960}
   m_BulletSpawnPoint: {fileID: 5263267461145946950}
   m_WhereToAim: {fileID: 0}
+  m_IsHeavy: 0
+--- !u!136 &-2307785485394910013
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4165648581995572540}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2.6117697
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.80588484, z: 0}
 --- !u!135 &4164674983045214412
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2978,29 +3001,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!136 &-2307785485394910013
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4165648581995572540}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2.6117697
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.80588484, z: 0}
 --- !u!1 &4165679040644324672
 GameObject:
   m_ObjectHideFlags: 0

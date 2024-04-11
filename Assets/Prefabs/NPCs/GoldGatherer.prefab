@@ -2486,17 +2486,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MaxHealthPoints: 10
   m_CurrentHealthPoints: 0
+  m_GoldGatherer: 0
+  m_Allied: 0
   m_GoldMine: {fileID: 0}
   m_GoldRunningPoint: {fileID: 0}
   m_Base: {fileID: 0}
-  IsDead: 0
-  m_Animator: {fileID: 0}
+  m_Animator: {fileID: 8093025857947851565}
   m_CurrentState: 0
   m_NavMeshAgent: {fileID: 8143783991332170232}
   m_StandbyTime: 0.5
   m_RemainingStandbyTime: 0
   m_MiningTime: 1
   m_RemainingMiningTime: 0
+  m_WaitingTime: 4
+  m_RemainingWaitingTime: 0
 --- !u!54 &6402451468021690170
 Rigidbody:
   m_ObjectHideFlags: 0

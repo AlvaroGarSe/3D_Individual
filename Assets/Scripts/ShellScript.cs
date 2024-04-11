@@ -7,6 +7,7 @@ public class ShellScript : MonoBehaviour
     public float lifeTime =5f;
 
     public bool m_AlliedBullet;
+    public int m_Damage;
 
     public ShellPoolManager m_ShellPoolManager;
 

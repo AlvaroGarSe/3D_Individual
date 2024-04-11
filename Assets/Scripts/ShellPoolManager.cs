@@ -29,13 +29,14 @@ public class ShellPoolManager : MonoBehaviour
         }
     }
 
-    public GameObject TakeShell(bool Allied)
+    public GameObject TakeShell(bool Allied, int damage)
     {
         foreach (GameObject shell in shellPool)
         {
             ScriptBullet = shell.GetComponent<ShellScript>();
             if (!shell.activeSelf && ScriptBullet.m_AlliedBullet == Allied)
             {
+                ScriptBullet.m_Damage = damage;
                 return shell;
             }
         }
@@ -44,6 +45,7 @@ public class ShellPoolManager : MonoBehaviour
         newShell.SetActive(false);
         ScriptBullet = newShell.GetComponent<ShellScript>();
         ScriptBullet.m_AlliedBullet = Allied;
+        ScriptBullet.m_Damage = damage;
         shellPool.Add(newShell);
         return newShell;
     }
