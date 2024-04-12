@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1241413469475186468}
   - component: {fileID: 5631631892483445776}
+  - component: {fileID: 3532109652774858237}
   m_Layer: 3
   m_Name: EnemyBase
   m_TagString: EnemyBase
@@ -95,6 +96,33 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 22.822813, y: 9.094497, z: 15.594076}
   m_Center: {x: 0.14845467, y: 4.2030807, z: 1.0422583}
+--- !u!114 &3532109652774858237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8767363431103877087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb7586be40a96f4449ff31df2f2e3632, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CurrentHealthPoints: 50
+  m_MaxHealthPoints: 50
+  m_GoldAmount: 10
+  m_MetalAmount: 10
+  m_GoldGathererSpawn: {fileID: 0}
+  m_HeavySoldierSpawn: {fileID: 0}
+  m_MetalGathererSpawn: {fileID: 0}
+  m_SoldierSpawn: {fileID: 0}
+  m_GoldGatherer: {fileID: 8144496979518760783, guid: 5893613f794f70046833267cfe694e28, type: 3}
+  m_HeavySoldier: {fileID: 545878983209826759, guid: 2b37e14599852a5478ac7d29623577a9, type: 3}
+  m_MetalGatherer: {fileID: 8904317952394934795, guid: 21b6b023b86a24645b23eaa67042dbd1, type: 3}
+  m_Soldier: {fileID: 4165648581995572540, guid: ce5bc2e06f0483547a4e74efbf4701bd, type: 3}
+  m_HasGoldGatherer: 0
+  m_HasMetalGatherer: 0
+  m_SoldierCount: 0
 --- !u!1001 &17645976925479205
 PrefabInstance:
   m_ObjectHideFlags: 0

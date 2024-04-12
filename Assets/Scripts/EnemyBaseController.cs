@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnemyBaseController : MonoBehaviour
 {
@@ -34,14 +35,15 @@ public class EnemyBaseController : MonoBehaviour
         m_CurrentHealthPoints = m_MaxHealthPoints;
         m_HasGoldGatherer = false;
         m_HasMetalGatherer = false;
-        m_GoldAmount = 50;
-        m_MetalAmount = 50;
+        m_GoldAmount = 10;
+        m_MetalAmount = 10;
         m_SoldierCount = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
+        //When there is no gold gatherer one is spawned
         if (!m_HasGoldGatherer && m_GoldAmount>=1 && m_MetalAmount >=5)
         {
             m_GoldAmount -= 1;
@@ -53,6 +55,7 @@ public class EnemyBaseController : MonoBehaviour
             m_GoldGathererScript.m_GoldGatherer = true;
             m_HasGoldGatherer = true;
         }
+        //When there is no metal gatherer one is spawned
         if (!m_HasMetalGatherer && m_GoldAmount >= 5 && m_MetalAmount >= 1)
         {
             m_GoldAmount -= 5;
@@ -64,6 +67,8 @@ public class EnemyBaseController : MonoBehaviour
             m_MetalGathererScript.m_GoldGatherer = false;
             m_HasMetalGatherer = true;
         }
+
+        //It spawns 3 soliders firstly and then one heavy soldier through all the time when there are resources
         if (m_SoldierCount < 3)
         {
             if(m_GoldAmount >= 15 && m_MetalAmount >= 15)
@@ -86,13 +91,41 @@ public class EnemyBaseController : MonoBehaviour
                 newHeavySoldier.tag = "Enemy";
                 m_HeavySoldierScript = newHeavySoldier.GetComponent<SoldierController>();
                 m_HeavySoldierScript.m_Allied = false;
+                m_SoldierCount = 0;
             }
         }
-        if (!m_HasGoldGatherer && m_GoldGathererScript.m_CurrentHealthPoints <= 0) { m_HasGoldGatherer = false; }
-        if (!m_HasMetalGatherer && m_MetalGathererScript.m_CurrentHealthPoints <= 0) { m_HasMetalGatherer = false; }
+
+        //It checks when the gold and metal gatherer is dead
+        if (m_HasGoldGatherer && m_GoldGathererScript.m_CurrentHealthPoints <= 0) { m_HasGoldGatherer = false; }
+        if (m_HasMetalGatherer && m_MetalGathererScript.m_CurrentHealthPoints <= 0) { m_HasMetalGatherer = false; }
+
+        //When the enemy base has no health points the final scene is loaded showing a winning message
+        if (m_CurrentHealthPoints <=0)
+        {
+            SceneManager.LoadScene("EndSceneWin");
+        }
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        //When a bullet collides and is allied, make damage deppends on who shooted it
+        if (collision.gameObject.CompareTag("Shell"))
+        {
+            m_ShellScript = collision.gameObject.GetComponent<ShellScript>();
+            if (m_ShellScript.m_AlliedBullet)
+            {
+                TakeDamage(m_ShellScript.m_Damage);
+            }
+        }
+    }
+    private void TakeDamage(int damage)
+    {
+        m_CurrentHealthPoints -= damage;
+    }
+
     public void GetResource(bool IsGold)
     {
+        //The enemy base get resources a 25% less than the player's base
         if (IsGold)
         {
             m_GoldAmount+= 0.75f;

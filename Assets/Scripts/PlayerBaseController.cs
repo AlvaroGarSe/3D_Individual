@@ -51,6 +51,8 @@ public class PlayerBaseController : MonoBehaviour
         m_CurrentHealthPoints = m_MaxHealthPoints;
         m_HasGoldGatherer = false;
         m_HasMetalGatherer = false;
+
+        //Each base starts with 10 gold and 10 metal
         m_GoldAmount = 10;
         m_MetalAmount = 10;
     }
@@ -61,12 +63,20 @@ public class PlayerBaseController : MonoBehaviour
         float dt = Time.deltaTime;
         m_GoldText.GetComponent<TextMeshProUGUI>().text = m_GoldAmount.ToString();
         m_MetalText.GetComponent<TextMeshProUGUI>().text = m_MetalAmount.ToString();
-        if(!m_HasGoldGatherer && m_GoldGathererScript.m_CurrentHealthPoints <= 0) { m_HasGoldGatherer = false; }
-        if(!m_HasMetalGatherer && m_MetalGathererScript.m_CurrentHealthPoints <= 0) { m_HasMetalGatherer = false;}
+        //It checks when the gold and metal gatherer is dead
+        if (m_HasGoldGatherer && m_GoldGathererScript.m_CurrentHealthPoints <= 0) { m_HasGoldGatherer = false; }
+        if(m_HasMetalGatherer && m_MetalGathererScript.m_CurrentHealthPoints <= 0) { m_HasMetalGatherer = false;}
+
+        //When the player base has no health points the final scene is loaded showing a losing message
+        if (m_CurrentHealthPoints <= 0)
+        {
+            SceneManager.LoadScene("EndSceneLose");
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
+        //When a bullet collides and is allied, make damage deppends on who shooted it
         if (collision.gameObject.CompareTag("Shell"))
         {
             m_ShellScript = collision.gameObject.GetComponent<ShellScript>();
@@ -80,17 +90,15 @@ public class PlayerBaseController : MonoBehaviour
     private void TakeDamage(int damage)
     {
         m_CurrentHealthPoints -= damage;
-        if(m_CurrentHealthPoints <= 0)
-        {
-            SceneManager.LoadScene("EndSceneLose");
-        }
     }
-
+    //All the spawner functions spawn a NPC when the player clicks on the button and when the player has the resources needed
+    //When the NPC is spawned their tag and other parameters from their script are changed
     private void GoldGathererSpawner()
     {
         if (m_GoldAmount >= 1 && m_MetalAmount >= 5)
         {
-            if(!m_HasGoldGatherer)
+            //If there is a goald gatherer you can not spawn another one
+            if (!m_HasGoldGatherer)
             {
                 m_GoldAmount -= 1;
                 m_MetalAmount -= 5;
@@ -108,6 +116,7 @@ public class PlayerBaseController : MonoBehaviour
     {
         if (m_GoldAmount >= 5 && m_MetalAmount >= 1)
         {
+            //If there is a metal gatherer you can not spawn another one
             if (!m_HasMetalGatherer)
             {
                 m_GoldAmount -= 5;

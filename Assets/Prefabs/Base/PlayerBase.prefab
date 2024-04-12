@@ -160,7 +160,6 @@ MonoBehaviour:
   m_SoldierButton: {fileID: 0}
   m_HasGoldGatherer: 0
   m_HasMetalGatherer: 0
-  aaaaa: 0
 --- !u!1001 &3128393506659606
 PrefabInstance:
   m_ObjectHideFlags: 0

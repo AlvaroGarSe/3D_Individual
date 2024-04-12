@@ -41,7 +41,6 @@ public class GathererController : MonoBehaviour
     public float m_RemainingWaitingTime = 0.0f;
 
 
-    // Start is called before the first frame update
     void Start()
     {
         m_NavMeshAgent = GetComponent<UnityEngine.AI.NavMeshAgent>();
@@ -50,6 +49,7 @@ public class GathererController : MonoBehaviour
         m_CurrentHealthPoints = m_MaxHealthPoints;
         m_RemainingWaitingTime = m_WaitingTime;
         m_Animator = GetComponent<Animator>();
+        //Finds the base and the necessary points of each gatherer deppending on if they are spawned from the player or the enemy
         if (m_Allied)
         {
             m_Base = GameObject.Find("PlayerBaseBuild");
@@ -93,7 +93,6 @@ public class GathererController : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         float dt = Time.deltaTime;
@@ -139,7 +138,7 @@ public class GathererController : MonoBehaviour
         {
             case GoldGathererStates.GO_TO_MINE:
                 m_Animator.SetBool("IsRuning", true);
-                m_Animator.SetBool("Mining", false);
+                m_Animator.SetBool("IsMining", false);
                 m_Animator.SetBool("Enemy",false);
                 m_CurrentState = GoldGathererStates.GO_TO_MINE;
                 m_NavMeshAgent.isStopped = false;
@@ -155,13 +154,13 @@ public class GathererController : MonoBehaviour
                 m_CurrentState = GoldGathererStates.ESCAPE;
                 m_Animator.SetBool("IsRuning", true);
                 m_Animator.SetBool("Enemy", true);
-                m_Animator.SetBool("Mining", false);
+                m_Animator.SetBool("IsMining", false);
                 m_NavMeshAgent.isStopped = false;
                 m_NavMeshAgent.SetDestination(m_GoldRunningPoint.position);
                 break;
             case GoldGathererStates.WAITING_ENEMY:
                 m_Animator.SetBool("IsRuning", false);
-                m_Animator.SetBool("Mining", false);
+                m_Animator.SetBool("IsMining", false);
                 m_NavMeshAgent.isStopped = true;
                 m_CurrentState = GoldGathererStates.WAITING_ENEMY;
                 break;
@@ -170,6 +169,7 @@ public class GathererController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        //It checks when an enemy is on their vision field to escape from them
         if (m_Allied)
         {
             if (other.CompareTag("Enemy") && !other.isTrigger)
@@ -196,6 +196,7 @@ public class GathererController : MonoBehaviour
 
     private void StandbyBehaviour(float dt)
     {
+        //When the gatherer is spawned, it stays in standby 0.5 seconds
         if (m_RemainingStandbyTime > 0)
         {
             m_RemainingStandbyTime -= dt;
@@ -249,12 +250,12 @@ public class GathererController : MonoBehaviour
 
     private void DestroyObject()
     {
-        this.gameObject.SetActive(false);
         Destroy (gameObject);
     }
 
     public bool IsDead()
     {
+        //Returns true if the gatherer is dead
         if(m_CurrentHealthPoints < 0)
         {
             return true;

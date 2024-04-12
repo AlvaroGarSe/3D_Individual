@@ -100,6 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lifeTime: 5
   m_AlliedBullet: 0
+  m_Damage: 0
   m_ShellPoolManager: {fileID: 0}
 --- !u!54 &2582956702761681561
 Rigidbody:
@@ -138,7 +139,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 1

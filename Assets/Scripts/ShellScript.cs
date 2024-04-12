@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ShellScript : MonoBehaviour
@@ -15,7 +16,6 @@ public class ShellScript : MonoBehaviour
     {
         m_ShellPoolManager = FindObjectOfType<ShellPoolManager>();
     }
-    // Update is called once per frame
     void Update()
     {
         lifeTime -= Time.deltaTime;
@@ -28,9 +28,10 @@ public class ShellScript : MonoBehaviour
     private void OnEnable()
     {
         lifeTime = 5f;
+
+        //Turns enemy bullets into Red and the allied into Blue
         if (!m_AlliedBullet)
         {
-            //Turns enmy bullets into Red and the allied into Blue
             this.GetComponent<Renderer>().material.color = Color.red;
         }
         else { this.GetComponent<Renderer>().material.color = Color.blue; }
@@ -38,25 +39,26 @@ public class ShellScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-            if (m_AlliedBullet)
-            {
-                if (other.gameObject.CompareTag("Enemy"))
-                {
 
-                    m_ShellPoolManager.ReturnShell(gameObject);
-                }
-            }
-            else
+        //If the bullet collides with the target it dissappear and return to the pool deppending on who shooted it
+        if (m_AlliedBullet)
+        {
+            if (other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("EnemyBase"))
             {
-                if (other.gameObject.CompareTag("Allied"))
-                {
-                    m_ShellPoolManager.ReturnShell(gameObject);
-                }
+                m_ShellPoolManager.ReturnShell(gameObject);
             }
-        
+        }
+        else
+        {
+            if (other.gameObject.CompareTag("Allied") || other.gameObject.CompareTag("AlliedBase"))
+            {
+                m_ShellPoolManager.ReturnShell(gameObject);
+            }
+        }        
     }
     public void AlliedBullet(bool Allied)
     {
+        //Turns the bullet into allied or not 
         m_AlliedBullet = Allied;
     }
 }

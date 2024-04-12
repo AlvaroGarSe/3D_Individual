@@ -41,7 +41,7 @@ public class SoldierController : MonoBehaviour
     private int m_Damage;
     private ShellScript m_ShellScript;
 
-    // Start is called before the first frame update
+
     void Start()
     {
         m_NavMeshAgent = GetComponent<UnityEngine.AI.NavMeshAgent>();
@@ -50,16 +50,23 @@ public class SoldierController : MonoBehaviour
         m_RemainingFireRate = m_FireRate;
         m_ShellPoolManager = GameObject.Find("ShellPoolManager").GetComponent<ShellPoolManager>();
         m_Animator = GetComponent<Animator>();
-        if(m_Allied)
+
+        //Finds the base and the necessary points of each gatherer deppending on if they are spawned from the player or the enemy
+        if (m_Allied)
         {
             m_EnemyBase = GameObject.Find("EnemyBase");
         }
-        else { m_EnemyBase = GameObject.Find("PlayerBaseBuild"); }
+        else 
+        { 
+            m_EnemyBase = GameObject.Find("PlayerBaseBuild");
+        }
         
         if(gameObject.CompareTag("Allied"))
         {
             m_Allied = true;
         }else { m_Allied=false; }
+
+        //If the soldier is heavy the bullet shooted will do more damage
         if(m_IsHeavy) { m_Damage = 2; }
         else
         {
@@ -67,7 +74,6 @@ public class SoldierController : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         float dt = Time.deltaTime;
@@ -81,17 +87,18 @@ public class SoldierController : MonoBehaviour
                 break;
             case SoldierStates.FIRING_BASE:
                 if(m_CurrentHealthPoints > 0)
-                { 
+                {
+                    //Stops instantly the soldier
                     m_NavMeshAgent.velocity = Vector3.zero;
                     TurretLooksAtPlayer(dt);
                     FireEnemy(dt);
                 }
-                
                 break;
             case SoldierStates.FIRING_ENEMY:
                 if(m_CurrentHealthPoints > 0) 
                 {
                     CheckEnemy();
+                    //Stops instantly the soldier
                     m_NavMeshAgent.velocity = Vector3.zero;
                     TurretLooksAtPlayer(dt);
                     FireEnemy(dt);
@@ -115,15 +122,12 @@ public class SoldierController : MonoBehaviour
                 m_NavMeshAgent.SetDestination(m_EnemyBase.transform.position);
                 break;
             case SoldierStates.FIRING_BASE:
-                m_Animator.SetTrigger("Shoot");
                 m_Animator.SetBool("IsFiring", true);
-                Debug.Log("Baseee");
                 m_EnemyList.Insert(0, m_EnemyBase);
                 m_NavMeshAgent.isStopped = true;
                 m_CurrentState = SoldierStates.FIRING_BASE;
                 break;
             case SoldierStates.FIRING_ENEMY:
-                m_Animator.SetTrigger("Shoot");
                 m_Animator.SetBool("IsFiring", true);
                 m_NavMeshAgent.isStopped= true;
                 m_CurrentState = SoldierStates.FIRING_ENEMY;
@@ -133,6 +137,7 @@ public class SoldierController : MonoBehaviour
 
     private void StandbyBehaviour(float dt)
     {
+        //When the soldier is spawned, it stays in standby 1 second
         if (m_RemainingStandbyTime > 0)
         {
             m_RemainingStandbyTime -= dt;
@@ -146,6 +151,7 @@ public class SoldierController : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
+        //It checks when the soldier can shoot an enemy deppending on if its allied or not
         if (m_Allied)
         {
             if (other.CompareTag("EnemyBase"))
@@ -166,9 +172,7 @@ public class SoldierController : MonoBehaviour
         {
             if (other.CompareTag("AlliedBase"))
             {
-                m_EnemyList.Clear();
-                m_EnemyList[0] = other.gameObject;
-                OnStateEnter(SoldierStates.SELECT_AND_GO_TO_POINT);
+                OnStateEnter(SoldierStates.FIRING_BASE);
             }
             if (other.CompareTag("Allied") && !other.isTrigger)
             {
@@ -184,6 +188,7 @@ public class SoldierController : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        //Removes from the list the enemyes that gets ot from the range of the soldier
         if(m_Allied)
         {
             if (other.gameObject.tag.Equals("Enemy"))
@@ -210,6 +215,7 @@ public class SoldierController : MonoBehaviour
 
     private void FireEnemy(float dt)
     { 
+        //Shoots to the enemy every 2 secondes
         if (m_RemainingFireRate <= 0)
         {
             m_RemainingFireRate = m_FireRate;
@@ -222,6 +228,7 @@ public class SoldierController : MonoBehaviour
     }
     private void TurretLooksAtPlayer(float dt)
     {
+        //The solider aims to the target
         m_WhereToAim = m_EnemyList[0].GetComponent<Transform>();
         Vector3 lookPos = m_WhereToAim.transform.position;
         Vector3 targetDirection = m_WhereToAim.transform.position - transform.position;
@@ -232,6 +239,7 @@ public class SoldierController : MonoBehaviour
 
     private void CheckEnemy()
     {
+        //Checks if there is an enemy in the range of the soldier
         if (m_EnemyList.Count <= 0)
         {
             OnStateEnter(SoldierStates.SELECT_AND_GO_TO_POINT);
@@ -259,6 +267,7 @@ public class SoldierController : MonoBehaviour
 
     private void SpawnShell()
     {
+        //Spawns a bullet in the tip of the gun of the soldier and shoot it to the enemy position
         GameObject shell = m_ShellPoolManager.TakeShell(m_Allied,m_Damage);
 
         shell.transform.position = m_BulletSpawnPoint.position;
@@ -275,6 +284,7 @@ public class SoldierController : MonoBehaviour
 
     private void DestroyObject()
     {
+        //When the death animation is completed the soldier is destroyed
         Destroy(gameObject);
     }
 
